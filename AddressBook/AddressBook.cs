@@ -8,29 +8,158 @@ namespace AddressBook
 {
     internal class AddressBook
     {
-        Contact contact = new Contact();
+        private Contact contact;
+
+
+        List<Contact> contactList = new List<Contact>();
 
         public void createContact()
         {
-            Console.Write("Enter the First Name : ");
+
+            contact = new Contact();
+            Console.Write("Enter the First Name     : ");
             contact.FirstName = Console.ReadLine();
-            Console.Write("\nEnter the Last Name : ");
+            Console.Write("\nEnter the Last Name    : ");
             contact.LastName = Console.ReadLine();
-            Console.Write("\nEnter the State : ");
-            contact.State = Console.ReadLine();
-            Console.Write("\nEnter the City : ");
-            contact.City = Console.ReadLine();
             Console.Write("\nEnter the Phone Number : ");
             contact.PhoneNumber = Console.ReadLine();
-            Console.Write("\nEnter the Address : ");
+            Console.Write("\nEnter the Email        : ");
+            contact.Email = Console.ReadLine();
+            Console.Write("\nEnter the Address      : ");
             contact.Address = Console.ReadLine();
-            Console.Write("\nEnter the Zip Code Name : ");
+            Console.Write("\nEnter the City Name    : ");
+            contact.City = Console.ReadLine();
+            Console.Write("\nEnter the State        : ");
+            contact.State = Console.ReadLine();
+            Console.Write("\nEnter Zip Code         :");
             contact.Zip = Convert.ToInt64(Console.ReadLine());
+
+            contactList.Add(contact);
         }
         public void displayContacts()
         {
+            int iCnt = 0;
 
-            Console.WriteLine("\nContatct Details\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}",contact.FirstName, contact.LastName, contact.Address, contact.City, contact.State, contact.PhoneNumber, contact.Zip);
+            if (contactList.Count < 0) { Console.WriteLine("No Contacts To Display........!!!!"); }
+
+            foreach (Contact sample in contactList)
+            {
+                Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                Console.WriteLine("\nContatct Details\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", sample.FirstName, sample.LastName, sample.Address, sample.City, sample.State, sample.PhoneNumber, sample.Zip);
+                Console.Write("----------------------------------------\n");
+            }
         }
+
+        public void EditDetails()
+        {
+            Console.Write("Enter name of person in contact to be edited : ");
+            string name = Console.ReadLine();
+            bool input =true ,chk = true;
+            if (contactList.Count < 1)
+            {
+                Console.WriteLine("No Contacts To Display");
+            }
+            else
+            {
+                foreach (Contact sample in contactList)
+                {
+                    if (sample.FirstName == name)
+                    {
+                        chk = false;
+                        break;
+                    }
+                }
+                if (chk == false)
+                {
+                    foreach (Contact sample in contactList)
+                    {
+                        if (sample.FirstName == name)
+                        {
+                            while (input)
+                            {
+
+                                Console.Write("\nEnter an option to edit contact : ");
+                                Console.WriteLine("\n1:Edit first name\n2:Edit last name\n3:Edit address\n4:Edit city\n5:Edit state\n6:Edit phone number\n7:Edit zip code\n8:Edit email id");
+                                Console.Write("Enter Your Choice : ");
+                                int option = Convert.ToInt32(Console.ReadLine());
+                                switch (option)
+                                {
+                                    case 1:
+                                        Console.WriteLine("Enter First name");
+                                        string currentFirstName = Console.ReadLine();
+                                        sample.FirstName = currentFirstName;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 2:
+                                        Console.WriteLine("Enter Last name");
+                                        string currentLastName = Console.ReadLine();
+                                        sample.LastName = currentLastName;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 3:
+                                        Console.WriteLine("Enter address");
+                                        string currentAddress = Console.ReadLine();
+                                        sample.Address = currentAddress;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 4:
+                                        Console.WriteLine("Enter city");
+                                        string currentCity = Console.ReadLine();
+                                        sample.City = currentCity;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 5:
+                                        Console.WriteLine("Enter state");
+                                        string currentState = Console.ReadLine();
+                                        sample.State = currentState;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 6:
+                                        Console.WriteLine("Enter phone number");
+                                        string currentPhoneNumber = Console.ReadLine();
+                                        sample.PhoneNumber = currentPhoneNumber;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 7:
+                                        Console.WriteLine("Enter zip ocde");
+                                        long currentZip = Convert.ToInt64(Console.ReadLine());
+                                        sample.Zip = currentZip;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    case 8:
+                                        Console.WriteLine("Enter Email id");
+                                        string currentEmail = Console.ReadLine();
+                                        sample.Email = currentEmail;
+                                        input = false;
+                                        Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
+                                        break;
+                                    default:
+                                        Console.WriteLine("Enter Proper Option.....!!");
+                                        break;
+                                }
+                             
+                            }
+                        }
+                    }
+                }
+                else
+                { Console.WriteLine("The person is not found"); }
+
+
+
+            }
+
+        }
+
     }
 }
+            
+           
+                
