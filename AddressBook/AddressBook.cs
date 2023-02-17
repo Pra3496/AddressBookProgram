@@ -9,6 +9,7 @@ namespace AddressBook
     internal class AddressBook
     {
         private Contact contact;
+        private bool chk;
 
 
         List<Contact> contactList = new List<Contact>();
@@ -42,6 +43,7 @@ namespace AddressBook
 
             if (contactList.Count == 0) 
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("\tNo Contacts To Display........!!!!"); 
             }
             else 
@@ -62,6 +64,7 @@ namespace AddressBook
             bool input = true, chk = true;
             if (contactList.Count < 1)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("\n\tNo Contacts To Edit");
             }
             else
@@ -86,7 +89,7 @@ namespace AddressBook
                             {
 
                                 Console.Write("\nChoose Option to Edit Contact\n");
-                                Console.WriteLine("\n1:Edit first name\n2:Edit last name\n3:Edit address\n4:Edit city\n5:Edit state\n6:Edit phone number\n7:Edit zip code\n8:Edit email id");
+                                Console.WriteLine("\n1 : First name\t2 : Last name\n3 : Address\t4 : City\n5 : State\t6 : Phone Number\n7 : zip code\t8 : E-mail id");
                                 Console.Write("\nEnter Your Choice : ");
                                 int option = Convert.ToInt32(Console.ReadLine());
                                 switch (option)
@@ -96,6 +99,7 @@ namespace AddressBook
                                         string currentFirstName = Console.ReadLine();
                                         sample.FirstName = currentFirstName;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 2:
@@ -103,6 +107,7 @@ namespace AddressBook
                                         string currentLastName = Console.ReadLine();
                                         sample.LastName = currentLastName;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 3:
@@ -110,6 +115,7 @@ namespace AddressBook
                                         string currentAddress = Console.ReadLine();
                                         sample.Address = currentAddress;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 4:
@@ -117,6 +123,7 @@ namespace AddressBook
                                         string currentCity = Console.ReadLine();
                                         sample.City = currentCity;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\nCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 5:
@@ -124,6 +131,7 @@ namespace AddressBook
                                         string currentState = Console.ReadLine();
                                         sample.State = currentState;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 6:
@@ -131,6 +139,7 @@ namespace AddressBook
                                         string currentPhoneNumber = Console.ReadLine();
                                         sample.PhoneNumber = currentPhoneNumber;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 7:
@@ -138,6 +147,7 @@ namespace AddressBook
                                         long currentZip = Convert.ToInt64(Console.ReadLine());
                                         sample.Zip = currentZip;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     case 8:
@@ -145,6 +155,7 @@ namespace AddressBook
                                         string currentEmail = Console.ReadLine();
                                         sample.Email = currentEmail;
                                         input = false;
+                                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                                         Console.WriteLine("\n\n\tCONTACT UPDATED SUCESSFULLY....\n\n");
                                         break;
                                     default:
@@ -157,18 +168,20 @@ namespace AddressBook
                     }
                 }
                 else
-                { Console.WriteLine("\nThe person is not found"); }
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("\nThe person is not found");
+                }
             }
 
         }
 
         public void deleteContact()
         {
-            
             char per = '\0';
-            bool chk = true;
             if (contactList.Count < 1)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("\n\tNo Contacts To Remove");
             }
             else
@@ -189,12 +202,14 @@ namespace AddressBook
                     {
                         if (sample.FirstName == name)
                         {
-                            Console.Write("\nDo You Want To Remove Contact (Y/N) : ");
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.Write("\nDo You Want To Remove {0}  from Contact (Y/N) : ",name);
                             per = Console.ReadKey().KeyChar;
                             if (per == 'Y' || per == 'y')
                             {
                                 
                                 contactList.Remove(sample);
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
                                 Console.WriteLine("\n\n\tCONTACT REMOVE SUCESSFULLY..!!!");
                             }
                             
@@ -203,7 +218,10 @@ namespace AddressBook
                     }
                 }
                 else
-                { Console.WriteLine("\nThe person is not found"); }
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed; 
+                    Console.WriteLine("\nThe person is not found");
+                }
             }
 
 
