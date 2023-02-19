@@ -10,6 +10,8 @@ namespace AddressBook
     {
         private Contact contact;
 
+        public string name { get; set; }
+
 
         List<Contact> contactList = new List<Contact>();
 
@@ -207,6 +209,65 @@ namespace AddressBook
             }
 
 
+        }
+
+        public void run()
+        {
+            bool flag = true;
+
+            while (flag)
+            {
+                Console.Write("\n\n**************************************************\n");
+                Console.Write("\tWelCome To {0} Address Book       \n",name);
+                Console.Write("**************************************************\n");
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n\n0 : Exit {0} Address Book\n\n",name);
+                Console.Write("**************************************************\n");
+                Console.Write("Enter Your Choice : ");
+                int opt = Convert.ToInt32(Console.ReadLine());
+                switch (opt)
+                {
+                    case 1:
+                        Console.WriteLine("\n------------{ Create Contacts }------------\n");
+                        createContact();
+                        Console.WriteLine("\n\nCONTACT ADDED SUCESSFULLY....\n\n");
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        
+                        break;
+                    case 2:
+                        Console.WriteLine("\n------------{ Display Contacts }------------\n");
+                        displayContacts();
+                        Console.WriteLine();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        
+                        break;
+                    case 3:
+                        Console.WriteLine("\n------------{ Edit Contacts }------------\n");
+                        EditDetails();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        
+                        break;
+                    case 4:
+                        Console.WriteLine("\n------------{ Remove Contacts }------------\n");
+                        deleteContact();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        
+                        break;
+                    case 0:
+                        Console.Write("\nPress ENTER Key to Go Back");
+                        Console.ReadKey();
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Enter the Proper Option......!!!!");
+                        break;
+                }
+
+
+            }
         }
 
     }
