@@ -382,7 +382,41 @@ namespace AddressBook
         }
 
 
+        public void FileWrite()
+        {
+            int iCnt = 0;
+            string AddressBookFilePath = @"F:\RPF Batch 256\AddressBook\AddressBook\files\Records.txt";
+            using (StreamWriter streamWriter = File.AppendText(AddressBookFilePath))
+            {
+                streamWriter.WriteLine("\nContact Details\n");
 
+                foreach (var contact in contactDict)
+                {
+                    Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                    streamWriter.WriteLine("\nFirst Name: " + contact.Value.FirstName);
+                    streamWriter.WriteLine("Last Name: " + contact.Value.LastName);
+                    streamWriter.WriteLine("Address: " + contact.Value.Address);
+                    streamWriter.WriteLine("City: " + contact.Value.City);
+                    streamWriter.WriteLine("State: " + contact.Value.State);
+                    streamWriter.WriteLine("Zip Code: " + contact.Value.Zip);
+                    streamWriter.WriteLine("PhoneNumber: " + contact.Value.PhoneNumber);
+                    streamWriter.WriteLine("Email: " + contact.Value.Email);
+                    Console.Write("-------------------------------------\n");
+                }
+
+                streamWriter.Close();
+                
+            }
+            Console.Write("Data Stored in File");
+        }
+
+        
+
+
+
+        /// <summary>
+        /// Run Method
+        /// </summary>
         public void run()
         {
             bool flag = true;
@@ -392,7 +426,7 @@ namespace AddressBook
                 Console.Write("\n\n**************************************************\n");
                 Console.Write("\tWelCome To {0} Address Book       \n",name);
                 Console.Write("**************************************************\n");
-                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n0 : Exit {0} Address Book\n\n", name);
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n8 : Sort by state, city and zip\n9 : Address book in File\n0 : Exit {0} Address Book\n\n", name);
                 Console.Write("**************************************************\n");
                 Console.Write("Enter Your Choice : ");
                 int opt = Convert.ToInt32(Console.ReadLine());
@@ -447,6 +481,12 @@ namespace AddressBook
                     case 8:
                         Console.WriteLine("\n------------{ Sort by State, City and Zip }------------\n");
                         SortbyStateCityZip();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 9:
+                        Console.WriteLine("\n------------{ Address Book in File  }------------\n");
+                        FileWrite();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
