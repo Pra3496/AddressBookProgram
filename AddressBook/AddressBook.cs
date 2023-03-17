@@ -331,7 +331,16 @@ namespace AddressBook
         }
 
 
-
+        public void SortByFirstName()
+        {
+            int iCnt = 0;
+            foreach (var contact in contactDict.OrderBy(x => x.Value.FirstName))
+            {
+                Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5}\nZip Code     :\t{6}", contact.Value.FirstName, contact.Value.LastName, contact.Value.Address, contact.Value.City, contact.Value.State, contact.Value.PhoneNumber, contact.Value.Zip);
+                Console.Write("-------------------------------------\n");
+            }
+        }
 
 
 
@@ -344,7 +353,7 @@ namespace AddressBook
                 Console.Write("\n\n**************************************************\n");
                 Console.Write("\tWelCome To {0} Address Book       \n",name);
                 Console.Write("**************************************************\n");
-                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n0 : Exit {0} Address Book\n\n", name);
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n0 : Exit {0} Address Book\n\n", name);
                 Console.Write("**************************************************\n");
                 Console.Write("Enter Your Choice : ");
                 int opt = Convert.ToInt32(Console.ReadLine());
@@ -387,6 +396,12 @@ namespace AddressBook
                         Console.WriteLine("\n------------{ Count by City and state }------------\n");
                         Console.WriteLine("Count by City  : "+addressBookDictonaryByCity.Count());
                         Console.WriteLine("Count by State : "+addressBookDictonaryByState.Count());
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 7:
+                        Console.WriteLine("\n------------{ Sort by Name }------------\n");
+                        SortByFirstName();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
