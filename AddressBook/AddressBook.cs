@@ -344,7 +344,7 @@ namespace AddressBook
                 Console.Write("\n\n**************************************************\n");
                 Console.Write("\tWelCome To {0} Address Book       \n",name);
                 Console.Write("**************************************************\n");
-                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n0 : Exit {0} Address Book\n\n", name);
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n0 : Exit {0} Address Book\n\n", name);
                 Console.Write("**************************************************\n");
                 Console.Write("Enter Your Choice : ");
                 int opt = Convert.ToInt32(Console.ReadLine());
@@ -383,9 +383,13 @@ namespace AddressBook
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
-
-                    
-
+                    case 6:
+                        Console.WriteLine("\n------------{ Count by City and state }------------\n");
+                        Console.WriteLine("Count by City  : "+addressBookDictonaryByCity.Count());
+                        Console.WriteLine("Count by State : "+addressBookDictonaryByState.Count());
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
                     case 0:
                         Console.Write("\nPress ENTER Key to Go Back");
                         Console.ReadKey();
