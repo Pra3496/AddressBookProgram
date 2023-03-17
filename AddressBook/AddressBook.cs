@@ -224,6 +224,25 @@ namespace AddressBook
 
         }
 
+
+        public void SearchByCity()
+        {
+            int iCnt = 0;
+            Console.Write("Enter the City Name: ");
+            string CityName = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("\nAll the Contact of: " + CityName);
+            foreach (var contact in contactList.FindAll(x => x.City == CityName))
+            {
+                Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}",contact.FirstName,contact.LastName,contact.City,contact.State,contact.State,contact.PhoneNumber,contact.Zip);
+                Console.Write("-------------------------------------\n");
+            }
+        }
+
+
+
+
+
         public void run()
         {
             bool flag = true;
@@ -269,6 +288,14 @@ namespace AddressBook
                         Console.ReadKey();
                         
                         break;
+
+                    case 5:
+                        Console.WriteLine("\n------------{ Search by City }------------\n");
+                        SearchByCity();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+
                     case 0:
                         Console.Write("\nPress ENTER Key to Go Back");
                         Console.ReadKey();
