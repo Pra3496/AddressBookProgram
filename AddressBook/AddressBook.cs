@@ -342,6 +342,45 @@ namespace AddressBook
             }
         }
 
+        public void SortbyStateCityZip()
+        {
+
+            int iCnt = 0;
+            Console.WriteLine("Choose the Option Below");
+            Console.WriteLine("\n1 : City\n2 : State\n3 : Zip Code");
+            Console.Write("Enter your choice : ");
+            int opt = Convert.ToInt32(Console.ReadLine());
+            switch(opt)
+            {
+                case 1:
+                    foreach (var contact in contactDict.OrderBy(x => x.Value.City))
+                    {
+                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5}\nZip Code     :\t{6}", contact.Value.FirstName, contact.Value.LastName, contact.Value.Address, contact.Value.City, contact.Value.State, contact.Value.PhoneNumber, contact.Value.Zip);
+                        Console.Write("-------------------------------------\n");
+                    }
+                    break;
+                case 2:
+                    foreach (var contact in contactDict.OrderBy(x => x.Value.State))
+                    {
+                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5}\nZip Code     :\t{6}", contact.Value.FirstName, contact.Value.LastName, contact.Value.Address, contact.Value.City, contact.Value.State, contact.Value.PhoneNumber, contact.Value.Zip);
+                        Console.Write("-------------------------------------\n");
+                    }
+                    break;
+                case 3:
+                    foreach (var contact in contactDict.OrderBy(x => x.Value.Zip))
+                    {
+                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5}\nZip Code     :\t{6}", contact.Value.FirstName, contact.Value.LastName, contact.Value.Address, contact.Value.City, contact.Value.State, contact.Value.PhoneNumber, contact.Value.Zip);
+                        Console.Write("-------------------------------------\n");
+                    }
+                    break;
+                default: Console.WriteLine("Please enter proper options"); break;
+            }
+         
+        }
+
 
 
         public void run()
@@ -402,6 +441,12 @@ namespace AddressBook
                     case 7:
                         Console.WriteLine("\n------------{ Sort by Name }------------\n");
                         SortByFirstName();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 8:
+                        Console.WriteLine("\n------------{ Sort by State, City and Zip }------------\n");
+                        SortbyStateCityZip();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
