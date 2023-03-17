@@ -228,15 +228,31 @@ namespace AddressBook
         public void SearchByCity()
         {
             int iCnt = 0;
-            Console.Write("Enter the City Name: ");
-            string CityName = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("\nAll the Contact of: " + CityName);
-            foreach (var contact in contactList.FindAll(x => x.City == CityName))
+            Console.Write("Enter the City OR State Name: ");
+            string sample = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("\nAll the Contact of: " +sample);
+            switch(sample)
             {
-                Console.Write("-----------------[" + ++iCnt + "]----------------\n");
-                Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}",contact.FirstName,contact.LastName,contact.City,contact.State,contact.State,contact.PhoneNumber,contact.Zip);
-                Console.Write("-------------------------------------\n");
+                case "City":
+                    foreach (var contact in contactList.FindAll(x => x.City == sample))
+                    {
+                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", contact.FirstName, contact.LastName, contact.City, contact.State, contact.State, contact.PhoneNumber, contact.Zip);
+                        Console.Write("-------------------------------------\n");
+                    }
+                    break;
+                case "State":
+                    foreach (var contact in contactList.FindAll(x => x.State == sample))
+                    {
+                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", contact.FirstName, contact.LastName, contact.City, contact.State, contact.State, contact.PhoneNumber, contact.Zip);
+                        Console.Write("-------------------------------------\n");
+                    }
+                    break;
+
+                default: Console.WriteLine("No Contact Match city or state "+sample); break;
             }
+           
         }
 
 
