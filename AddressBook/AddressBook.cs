@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +12,15 @@ namespace AddressBook
     {
         private Contact contact;
 
+        public int iCnt;
+
         public string name { get; set; }
 
 
         List<Contact> contactList = new List<Contact>();
         Dictionary<string, Contact> contactDict = new Dictionary<string, Contact>();
+        Dictionary<string, List<Contact>> addressBookDictonaryByCity = new Dictionary<string, List<Contact>>();
+        Dictionary<string, List<Contact>> addressBookDictonaryByState = new Dictionary<string, List<Contact>>();
 
         public void createContact()
         {
@@ -45,6 +51,7 @@ namespace AddressBook
             {
                 contactList.Add(contact);
                 contactDict.Add(contact.FirstName, contact);
+                iCnt++;
                 Console.WriteLine("\n\n\tCONTACT ADDED SUCESSFULLY....\n\n");
 
             }
@@ -227,32 +234,56 @@ namespace AddressBook
 
         public void SearchByCityorState()
         {
+            ViewByCityandState();
             int iCnt = 0;
-            Console.WriteLine("Enter the City OR State Name");
+            Console.WriteLine("Choose the Option Below");
             Console.WriteLine("\n1 : City\n2 : State");
+            Console.Write("Enter your choice : ");
             int opt = Convert.ToInt32(Console.ReadLine());
             switch (opt)
             {
                 case 1:
-                    Console.Write("Enter the City OR State Name: ");
+                    Console.Write("Enter the City : ");
                     string sample = Convert.ToString(Console.ReadLine());
-                    Console.WriteLine("\nAll the Contact of: " + sample);
-                    foreach (var contact in contactList.FindAll(x => x.City == sample))
+                    
+                    foreach (var citydict in addressBookDictonaryByCity)
                     {
-                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
-                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", contact.FirstName, contact.LastName, contact.City, contact.State, contact.State, contact.PhoneNumber, contact.Zip);
-                        Console.Write("-------------------------------------\n");
+
+                        if(citydict.Key == sample)
+                        {
+                            Console.Write("\t [ " + citydict.Key + " ]\n");
+                            foreach (Contact contact in citydict.Value)
+                            {
+                                
+                                Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                                Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", contact.FirstName, contact.LastName,contact.Address, contact.City, contact.State, contact.PhoneNumber, contact.Zip);
+                                Console.Write("-------------------------------------\n");
+                            }
+                            break;
+                        }
+
                     }
                     break;
                 case 2:
-                    Console.Write("Enter the City OR State Name: ");
+                    Console.Write("Enter the State Name: ");
                     sample = Convert.ToString(Console.ReadLine());
-                    Console.WriteLine("\nAll the Contact of: " + sample);
-                    foreach (var contact in contactList.FindAll(x => x.State == sample))
+
+                    foreach (var statedict in addressBookDictonaryByState)
                     {
-                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
-                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", contact.FirstName, contact.LastName, contact.City, contact.State, contact.State, contact.PhoneNumber, contact.Zip);
-                        Console.Write("-------------------------------------\n");
+
+                        if (statedict.Key == sample)
+                        {
+                            Console.Write("\t [ " + statedict.Key + " ]\n");
+                            foreach (Contact contact in statedict.Value)
+                            {
+                                
+                                Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                                Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5}\nZip Code     :\t{6}", contact.FirstName, contact.LastName,contact.Address, contact.City, contact.State, contact.PhoneNumber, contact.Zip);
+                                Console.Write("-------------------------------------\n");
+                            }
+                            break;
+                        }
+
                     }
                     break;
 
@@ -260,6 +291,45 @@ namespace AddressBook
             }
            
         }
+
+        private void ViewByCityandState()
+        {
+            foreach (Contact contact in contactList)
+            {
+                if (addressBookDictonaryByCity.ContainsKey(contact.City))
+                {
+                    continue;
+                }
+                else
+                {
+                    List<Contact> newContactbycity = contactList.FindAll(x => x.City == contact.City);
+
+                    addressBookDictonaryByCity.Add(contact.City, newContactbycity);
+                }
+
+            }
+
+            foreach (Contact contact in contactList)
+            {
+                if (addressBookDictonaryByState.ContainsKey(contact.State))
+                {
+                    continue;
+                }
+                else
+                {
+                    List<Contact> newContactbystate = contactList.FindAll(x => x.State == contact.State);
+
+                    addressBookDictonaryByState.Add(contact.State, newContactbystate);
+                }
+
+            }
+
+
+            
+
+
+        }
+
 
 
 
@@ -274,7 +344,7 @@ namespace AddressBook
                 Console.Write("\n\n**************************************************\n");
                 Console.Write("\tWelCome To {0} Address Book       \n",name);
                 Console.Write("**************************************************\n");
-                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n\n0 : Exit {0} Address Book\n\n",name);
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n0 : Exit {0} Address Book\n\n", name);
                 Console.Write("**************************************************\n");
                 Console.Write("Enter Your Choice : ");
                 int opt = Convert.ToInt32(Console.ReadLine());
@@ -286,7 +356,6 @@ namespace AddressBook
                         
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
-                        
                         break;
                     case 2:
                         Console.WriteLine("\n------------{ Display Contacts }------------\n");
@@ -294,21 +363,18 @@ namespace AddressBook
                         Console.WriteLine();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
-                        
                         break;
                     case 3:
                         Console.WriteLine("\n------------{ Edit Contacts }------------\n");
                         EditDetails();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
-                        
                         break;
                     case 4:
                         Console.WriteLine("\n------------{ Remove Contacts }------------\n");
                         deleteContact();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
-                        
                         break;
 
                     case 5:
@@ -317,6 +383,8 @@ namespace AddressBook
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
+
+                    
 
                     case 0:
                         Console.Write("\nPress ENTER Key to Go Back");
