@@ -14,6 +14,7 @@ namespace AddressBook
 
 
         List<Contact> contactList = new List<Contact>();
+        Dictionary<string, Contact> contactDict = new Dictionary<string, Contact>();
 
         public void createContact()
         {
@@ -36,25 +37,37 @@ namespace AddressBook
             Console.Write("\nEnter Zip Code         : ");
             contact.Zip = Convert.ToInt64(Console.ReadLine());
 
-            contactList.Add(contact);
+            if (contactDict.ContainsKey(contact.FirstName))
+            {
+                Console.WriteLine("\n\n\tDublicate Entry Detected...!!!!!\n\tCannot ADD");
+            }
+            else
+            {
+                contactList.Add(contact);
+                contactDict.Add(contact.FirstName, contact);
+                Console.WriteLine("\n\n\tCONTACT ADDED SUCESSFULLY....\n\n");
+
+            }
         }
         public void displayContacts()
         {
             int iCnt = 0;
 
-            if (contactList.Count == 0) 
+            if (contactDict.Count == 0) 
             {
                 Console.WriteLine("\tNo Contacts To Display........!!!!"); 
             }
             else 
             {
-                Console.WriteLine("\t-: Contact Details :-");
-                foreach (Contact sample in contactList)
-                {
-                    Console.Write("-----------------[" + ++iCnt + "]----------------\n");
-                    Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", sample.FirstName, sample.LastName, sample.Address, sample.City, sample.State, sample.PhoneNumber, sample.Zip);
-                    Console.Write("-------------------------------------\n");
-                }
+               
+                    Console.WriteLine("\t-: Contact Details :-");
+                    foreach (var sample in contactDict)
+                    {
+                        Console.Write("-----------------[" + ++iCnt + "]----------------\n");
+                        Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5},\nZip Code     :\t{6}", sample.Value.FirstName, sample.Value.LastName, sample.Value.Address, sample.Value.City, sample.Value.State, sample.Value.PhoneNumber, sample.Value.Zip);
+                        Console.Write("-------------------------------------\n");
+                    }
+                
             }
            
         }
@@ -229,7 +242,7 @@ namespace AddressBook
                     case 1:
                         Console.WriteLine("\n------------{ Create Contacts }------------\n");
                         createContact();
-                        Console.WriteLine("\n\nCONTACT ADDED SUCESSFULLY....\n\n");
+                        
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         

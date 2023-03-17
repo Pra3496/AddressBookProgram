@@ -24,7 +24,7 @@ namespace aBookdist
                     case 1:
                         Console.WriteLine("\n------------{ Create Address Book }------------\n");
                         aBookdist.createAddressBook();
-                        Console.WriteLine("\n\nADDRESS BOOK ADDED SUCESSFULLY....\n\n");
+                        
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         Console.Clear();

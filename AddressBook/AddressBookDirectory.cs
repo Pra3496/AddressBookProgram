@@ -14,30 +14,48 @@ namespace AddressBook
 
 
         List<AddressBook> directoryList = new List<AddressBook>();
+        Dictionary<string,AddressBook> addressBookDictonary = new Dictionary<string,AddressBook>();
+
 
         public void createAddressBook()
         {
 
             addressbook = new AddressBook();
             Console.Write("Enter the Name of Addreess Book : ");
-            addressbook.name = Convert.ToString(Console.ReadLine());
-            directoryList.Add(addressbook);
+            string name = Convert.ToString(Console.ReadLine());
+            addressbook.name = name.ToUpper();
+            string sample = Convert.ToString(addressbook.name);
+            
+
+            if (addressBookDictonary.ContainsKey(sample[0].ToString()))
+            {
+                Console.WriteLine("\n\n\tDublicate Entry Detected...!!!!!\n\tCannot be ADDED");
+            }
+            else
+            {
+                directoryList.Add(addressbook);
+                addressBookDictonary.Add(sample[0].ToString(), addressbook);
+                Console.WriteLine("\n\nADDRESS BOOK ADDED SUCESSFULLY....\n\n");
+
+            }
+
+            
         }
         public void displayDirectory()
         {
             int iCnt = 0;
 
-            if (directoryList.Count == 0)
+            if (addressBookDictonary.Count == 0)
             {
                 Console.WriteLine("\tNo Address Book To Display........!!!!");
             }
             else
             {
                 Console.WriteLine("\t-: Contact Details :-");
-                foreach (AddressBook sample in directoryList)
+                foreach (var sample in addressBookDictonary)
                 {
                     Console.Write("-----------------[" + ++iCnt + "]----------------\n");
-                    Console.WriteLine("\nName of Address Book : " + sample.name);
+                    Console.WriteLine("\nIntitial : "+sample.Key+"\tName of Address Book : " + sample.Value.name);
                     Console.Write("-------------------------------------\n");
                 }
                 
