@@ -225,15 +225,18 @@ namespace AddressBook
         }
 
 
-        public void SearchByCity()
+        public void SearchByCityorState()
         {
             int iCnt = 0;
-            Console.Write("Enter the City OR State Name: ");
-            string sample = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("\nAll the Contact of: " +sample);
-            switch(sample)
+            Console.WriteLine("Enter the City OR State Name");
+            Console.WriteLine("\n1 : City\n2 : State");
+            int opt = Convert.ToInt32(Console.ReadLine());
+            switch (opt)
             {
-                case "City":
+                case 1:
+                    Console.Write("Enter the City OR State Name: ");
+                    string sample = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("\nAll the Contact of: " + sample);
                     foreach (var contact in contactList.FindAll(x => x.City == sample))
                     {
                         Console.Write("-----------------[" + ++iCnt + "]----------------\n");
@@ -241,7 +244,10 @@ namespace AddressBook
                         Console.Write("-------------------------------------\n");
                     }
                     break;
-                case "State":
+                case 2:
+                    Console.Write("Enter the City OR State Name: ");
+                    sample = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("\nAll the Contact of: " + sample);
                     foreach (var contact in contactList.FindAll(x => x.State == sample))
                     {
                         Console.Write("-----------------[" + ++iCnt + "]----------------\n");
@@ -250,7 +256,7 @@ namespace AddressBook
                     }
                     break;
 
-                default: Console.WriteLine("No Contact Match city or state "+sample); break;
+                default: Console.WriteLine("Please enter proper options"); break;
             }
            
         }
@@ -307,7 +313,7 @@ namespace AddressBook
 
                     case 5:
                         Console.WriteLine("\n------------{ Search by City }------------\n");
-                        SearchByCity();
+                        SearchByCityorState();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
