@@ -1,0 +1,21 @@
+using System;
+
+public class AddressBook
+{
+    	string path = "";
+	
+	static void Main(String[] args)
+	{
+		 string[] fileRead = File.ReadAllLines(path);
+
+                        Console.WriteLine("\n--- START OF FILE ----\n");
+                        foreach (string line in fileRead)
+                        {
+                            Console.WriteLine(line);
+                        }
+                        Console.WriteLine("\n--- END OF FILE ----");
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+	}
+}
+

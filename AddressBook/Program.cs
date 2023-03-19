@@ -1,6 +1,6 @@
 ﻿using AddressBook;
 
-namespace aBookdist 
+namespace aBookdist
 {
     internal class Program
     {
@@ -69,6 +69,6 @@ namespace aBookdist
             }
 
         }
-        
+
     }
 }

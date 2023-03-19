@@ -410,7 +410,69 @@ namespace AddressBook
             Console.Write("Data Stored in File");
         }
 
-        
+        public void FilwriteCSV()
+        {
+            string filePathcsv = @"F:\RPF Batch 256\AddressBook\AddressBook\files\data.csv";
+
+            bool flag = true;
+
+          
+
+            while (flag)
+            {
+                Console.WriteLine("1 : Make Customer Information in CSV file");
+                Console.WriteLine("2 : Read Customer Information in CSV file");
+                Console.WriteLine("0 : Exit");
+                Console.Write("Enter the option : ");
+
+                int opt = Convert.ToInt32(Console.ReadLine());
+                switch (opt)
+                {
+                    case 1:
+
+                        using (StreamWriter writer = File.AppendText(filePathcsv))
+                        {
+
+                            
+                            foreach (var contact in contactDict)
+                            {
+                                writer.WriteLine(contact.Value.FirstName + "," + contact.Value.LastName + "," + contact.Value.Address+"," + contact.Value.City+"," + contact.Value.PhoneNumber+"," + contact.Value.Email+"," + contact.Value.Zip);
+                            }
+                            writer.Close();
+                            Console.WriteLine("\n\tContext is Added");
+                            
+                           
+
+                        }
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 2:
+                        string[] fileRead = File.ReadAllLines(filePathcsv);
+                        
+                        Console.WriteLine("\n--- START OF FILE ----\n");
+                        for(int i = 0;i < fileRead.Length;i++)
+                        {
+                            string[] newFileRead = fileRead[i].Split(",");
+                            foreach (string line in newFileRead)
+                            {
+                                Console.Write(line+" ");
+                            }
+                            Console.WriteLine();
+
+                        }
+                        Console.WriteLine("\n--- END OF FILE ----");
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 0:
+                        flag = false;
+
+                        break;
+
+                }
+            }
+        }
 
 
 
@@ -426,7 +488,7 @@ namespace AddressBook
                 Console.Write("\n\n**************************************************\n");
                 Console.Write("\tWelCome To {0} Address Book       \n",name);
                 Console.Write("**************************************************\n");
-                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n8 : Sort by state, city and zip\n9 : Address book in File\n0 : Exit {0} Address Book\n\n", name);
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n8 : Sort by state, city and zip\n9 : Address book in File\n10 : Address book in CSV\n0 : Exit {0} Address Book\n\n", name);
                 Console.Write("**************************************************\n");
                 Console.Write("Enter Your Choice : ");
                 int opt = Convert.ToInt32(Console.ReadLine());
@@ -487,6 +549,12 @@ namespace AddressBook
                     case 9:
                         Console.WriteLine("\n------------{ Address Book in File  }------------\n");
                         FileWrite();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 10:
+                        Console.WriteLine("\n------------{ Address Book in CSV }------------\n");
+                        FilwriteCSV();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;
