@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace AddressBook
 {
@@ -475,11 +476,105 @@ namespace AddressBook
         }
 
 
+        public void FilwriteJSON()
+        {
+            string filePathJson = @"F:\RPF Batch 256\AddressBook\AddressBook\files\dataJson.txt";
 
-        /// <summary>
-        /// Run Method
-        /// </summary>
-        public void run()
+            bool flag = true;
+
+          
+
+            while (flag)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("1 : Make Customer Information");
+                Console.WriteLine("2 : Read Customer Information as JSON Format");
+                Console.WriteLine("3 : Read Customer Information as String");
+                Console.WriteLine("0 : Exit");
+                Console.Write("Enter the option : ");
+
+                int opt = Convert.ToInt32(Console.ReadLine());
+                switch (opt)
+                {
+                    case 1:
+
+                        using (StreamWriter writer = File.AppendText(filePathJson))
+                        {
+
+                            Console.WriteLine("\n--- START OF FILE ----\n");
+                            
+                            foreach(Contact contact in contactList)
+                            {
+                                string JsonData = JsonConvert.SerializeObject(contact);
+
+                                writer.WriteLine(JsonData);
+                            }
+                          
+                           
+
+                            writer.Close();
+                            Console.WriteLine("\n\tContext is Added");
+                         
+
+                        }
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+
+
+                    case 2:
+                        using (StreamReader reader = File.OpenText(filePathJson))
+                        {
+                            string stream = "";
+                            Console.WriteLine("\n--- JSON ----\n");
+                            while ((stream = reader.ReadLine()) != null)
+                            {
+                                Console.WriteLine(stream);
+                            }
+                            Console.WriteLine("\n--- END OF FILE----");
+                        }
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+
+
+                    case 3:
+                        using (StreamReader reader = File.OpenText(filePathJson))
+                        {
+                            string stream = "";
+                            
+                            while ((stream = reader.ReadLine()) != null)
+                            {
+                                Contact Data = JsonConvert.DeserializeObject<Contact>(stream);
+                               
+
+                                Console.Write("\n-----------------[ JSON to Txt ]----------------\n");
+                                Console.WriteLine("\nFirst Name   :\t{0}\nLast Name    :\t{1}\nAddress      :\t{2}\nCity         :\t{3}\nState        :\t{4}\nPhone Number :\t{5}\nZip Code     :\t{6}", Data.FirstName, Data.LastName, Data.Address, Data.City, Data.State, Data.PhoneNumber, Data.Zip);
+                                Console.Write("-----------------------------------------------\n");
+                                
+                            }
+                        }
+
+                        
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 0:
+                        flag = false;
+                        break;
+
+                }
+            }
+        }
+
+
+
+
+
+            /// <summary>
+            /// Run Method
+            /// </summary>
+            public void run()
         {
             bool flag = true;
 
@@ -488,7 +583,7 @@ namespace AddressBook
                 Console.Write("\n\n**************************************************\n");
                 Console.Write("\tWelCome To {0} Address Book       \n",name);
                 Console.Write("**************************************************\n");
-                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n8 : Sort by state, city and zip\n9 : Address book in File\n10 : Address book in CSV\n0 : Exit {0} Address Book\n\n", name);
+                Console.WriteLine("\n1 : Add Contact\n2 : Display Contacts\n3 : Edit Contact \n4 : Remove Contact \n5 : Search by City or State Contact\n6 : Count by City and state\n7 : Sort by Name\n8 : Sort by state, city and zip\n9 : Address book in File\n10 : Address book in CSV\n11 : Address book in JSON\n\t0 : Exit {0} Address Book\n\n", name);
                 Console.Write("**************************************************\n");
                 Console.Write("Enter Your Choice : ");
                 int opt = Convert.ToInt32(Console.ReadLine());
@@ -555,6 +650,12 @@ namespace AddressBook
                     case 10:
                         Console.WriteLine("\n------------{ Address Book in CSV }------------\n");
                         FilwriteCSV();
+                        Console.Write("\nPress any key to exit...");
+                        Console.ReadKey();
+                        break;
+                    case 11:
+                        Console.WriteLine("\n------------{ Address Book in JSON }------------\n");
+                        FilwriteJSON();
                         Console.Write("\nPress any key to exit...");
                         Console.ReadKey();
                         break;

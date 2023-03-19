@@ -1,8 +1,0 @@
-
-using AddressBook;
-
-namespace aBookdist
-{
-   
-
-}
